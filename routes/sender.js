@@ -4,7 +4,7 @@ const senders = require('../controllers/sender');
 
 router.post('/', senders.create);
 router.post('/:id/parcels', senders.createParcel);
-router.get('/:id/parcels', senders.findAllParcelsStatus);
+router.get('/:id/parcels', senders.findParcelsStatus);
 
 module.exports = router;
 

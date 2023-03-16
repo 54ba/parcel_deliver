@@ -1,13 +1,4 @@
-
-const { Sender, Parcel } = require('../models/models');
-
-module.exports =
-{
-    create,
-    createParcel,
-    findAllParcelsStatus
-
-}
+const { Parcel, Sender } = require('../models');
 
 // Create a new sender
 const create = async (req, res) => {
@@ -55,7 +46,7 @@ const createParcel = async (req, res) => {
 }
 
 // Get the status of all parcels for a sender
-const findAllParcelsStatus = async (req, res) => {
+const findParcelsStatus = async (req, res) => {
     try {
         const sender = await Sender.findById(req.params.id);
         if (!sender) {
@@ -67,6 +58,15 @@ const findAllParcelsStatus = async (req, res) => {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
+}
+
+
+module.exports =
+{
+    create,
+    createParcel,
+    findParcelsStatus
+
 }
 
 

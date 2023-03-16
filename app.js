@@ -49,13 +49,12 @@ require('./routes/api')(app);
 // res.render('error');
 // });
 
-app.listen(port, () => {
+app.listen(4000, () => {
   console.log('Server listening on port 3000');
 });
 
 
 //mongo handler
-// const { mongoConnect } = require("./DBConnection");
 const { mongoConnect } = require("./DBConnection");
 
 //mongo handler

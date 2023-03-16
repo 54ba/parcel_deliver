@@ -1,16 +1,10 @@
-const { Biker, Parcel } = require('../models/models');
+const { Parcel, Biker } = require('../models');
 
-module.exports =
-{
-    findAvailableParcels,
-    pickUpParcel,
-    deliverParcel
-}
 
 // Get all parcels available for pickup by the biker
 const findAvailableParcels = async (req, res) => {
     try {
-        const biker = await Biker.findById(req.biker.id);
+        const biker = await Biker.findById(req.params.id);
         if (!biker) {
             return res.status(400).send('Invalid biker ID');
         }
@@ -32,7 +26,7 @@ const findAvailableParcels = async (req, res) => {
 // router.put('/parcels/:id/pickup',
 const pickUpParcel = async (req, res) => {
     try {
-        const parcel = await Parcel.findById(req.params.id);
+        const parcel = await Parcel.findById(req.params.parcelId);
         if (!parcel) {
             return res.status(404).send('Parcel not found');
         }
@@ -40,7 +34,7 @@ const pickUpParcel = async (req, res) => {
             return res.status(400).send('Parcel already picked up or delivered');
         }
 
-        const biker = await Biker.findById(req.biker.id);
+        const biker = await Biker.findById(req.params.bikerId);
         if (!biker) {
             return res.status(404).send('Biker not found');
         }
@@ -52,7 +46,7 @@ const pickUpParcel = async (req, res) => {
         await parcel.save();
 
         // update the status of the order for the sender
-        const sender = await Sender.findById(parcel.sender);
+        const sender = await Sender.findById(parcel.sender._id);
         if (sender) {
             const senderParcel = sender.parcels.find(p => p._id.toString() === parcel._id.toString());
             if (senderParcel) {
@@ -73,7 +67,7 @@ const pickUpParcel = async (req, res) => {
 // Update the delivery timestamp and status of a parcel to "Delivered"
 const deliverParcel = async (req, res) => {
     try {
-        const parcel = await Parcel.findById(req.params.id);
+        const parcel = await Parcel.findById(req.params.parcelId);
         if (!parcel) {
             return res.status(404).send('Parcel not found');
         }
@@ -83,12 +77,17 @@ const deliverParcel = async (req, res) => {
         if (parcel.bikerId !== req.body.bikerId) {
             return res.status(400).send('Parcel not assigned to biker');
         }
+        const biker = await Biker.findById(req.params.bikerId);
+        if (!biker) {
+            return res.status(404).send('Biker not found');
+        }
+
         parcel.status = 'delivered';
         parcel.deliveredBy = biker._id;
         parcel.deliveryTime = req.body.deliveryTime;
         await parcel.save();
         // update the status of the order for the sender
-        const sender = await Sender.findById(parcel.sender);
+        const sender = await Sender.findById(parcel.sender._id);
         if (sender) {
             const senderParcel = sender.parcels.find(p => p._id.toString() === parcel._id.toString());
             if (senderParcel) {
@@ -104,6 +103,13 @@ const deliverParcel = async (req, res) => {
         console.error(error);
         res.status(500).send('Server error');
     }
+}
+
+module.exports =
+{
+    findAvailableParcels,
+    pickUpParcel,
+    deliverParcel
 }
 
 

@@ -1,11 +1,6 @@
-const { Sender, Parcel } = require('../models/models');
+const { Parcel, Sender } = require('../models');
 
-module.exports =
-{
-    create,
-    findOne,
-    findAll
-}
+
 
 // Create a parcel
 const create = async (req, res) => {
@@ -13,7 +8,7 @@ const create = async (req, res) => {
         const { sender, pickupAddress, dropoffAddress } = req.body;
 
         // Check if sender exists
-        const sender_record = await Sender.findById(sender.id);
+        const sender_record = await Sender.findById(sender._id);
         if (!sender_record) {
             return res.status(400).send('Invalid sender ID');
         }
@@ -54,6 +49,13 @@ const findAll = async (req, res) => {
     }
 }
 
+
+module.exports =
+{
+    create,
+    findOne,
+    findAll
+}
 
 
 

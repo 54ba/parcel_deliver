@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  npm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: node:latest
+    restart: unless-stopped
+    container_name: npm
+    user: "1000:1000"
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    volumes:
+      - .:/var/www/
+    working_dir: /var/www/
+    entrypoint: [ 'npm', 'start' ]
+    env_file: ./.env
+    stdin_open: true
+    tty: true
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo_express
+
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://127.0.0.1:27017/parcel_deliver_db
+      # ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      # ME_CONFIG_MONGODB_ADMINPASSWORD: example
