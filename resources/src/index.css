@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #app {
+    margin: 0;
+    height: 100%;
+}
+
+@layer utilities {
+    .rounded-t-5xl {
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+}
+
+.btn-base, .field-base {
+    user-select: none;
+}
+
+.selectable * {
+    user-select: all;
+}
+
+/* SLIDE-IN-TOP */
+
+.slide-in-top-enter-active,
+.slide-in-top-leave-active {
+    transition: all 0.2s ease;
+}
+
+.slide-in-top-enter-from,
+.slide-in-top-leave-to {
+    opacity: 0;
+    transform: translateY(-.5rem);
+}
+
+/* SLIDE-IN-BOTTOM */
+
+.slide-in-bottom-enter-active,
+.slide-in-bottom-leave-active {
+    transition: all 0.2s ease;
+}
+
+.slide-in-bottom-enter-from,
+.slide-in-bottom-leave-to {
+    opacity: 0;
+    transform: translateY(-.5rem);
+}
+
+/* SLIDE-IN-FROM-RIGHT */
+.slide-in-right-enter-active,
+.slide-in-right-leave-active {
+    transition: all .2s ease;
+    transform: translateX(0);
+}
+
+.slide-in-right-enter-from,
+.slide-in-right-leave-to {
+    transform: translateX(100%);
+}
+
+/* FADE-IN */
+
+.fade-in-enter-active,
+.fade-in-leave-active {
+    transition: all .2s ease;
+    opacity: 1;
+}
+
+.fade-in-enter-from,
+.fade-in-leave-to {
+    transition: all .2s ease;
+    opacity: 0;
+}
+
+.no-scroll-track::-webkit-scrollbar {
+    display: none;
+}
+
+.fade-in {
+    animation: fade-in .2s forwards;
+    opacity: 0;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.board-cover-image {
+    @apply h-32 object-cover w-full rounded-lg
+}

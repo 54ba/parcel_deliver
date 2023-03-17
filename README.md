@@ -20,25 +20,37 @@ Parcel Deliver
 
 <ul>
 
-  <li> <input type="checkbox" disabled checked /> <del> UI - UX </del></li>
-  <li> <input type="checkbox" disabled  />  Vue Integration </li>
-  <li> <input type="checkbox" disabled  /> SPA with Drag n Drop feature</li>
+  <li> <input type="checkbox" disabled  checked /><del>  Vue Integration </del></li>
+  <li> <input type="checkbox" disabled  checked /> <del>SPA with Drag n Drop feature</del></li>
+  <li> <input type="checkbox" disabled />Building assets and importing dist in Backend project</li>
   <li> <input type="checkbox" disabled /> JWT AUTH</li>
-  <li> <input type="checkbox" disabled />Make exprimental services available</li>
+  <li> <input type="checkbox" disabled /> Complete post - put methods cycle </li>
+  <li> <input type="checkbox" disabled /> Test and Modify Docker to Expose vue  </li>
 
 </ul>
 
 ---
 
+### TODO
+
+<ul>
+  <li> <input type="checkbox" disabled />Make exprimental services available</li>
+  <li> <input type="checkbox" disabled />typescript </li>
+  <li> <input type="checkbox" disabled />deployment of container on Oracle Cloud </li>
+  <li> <input type="checkbox" disabled />LoadBalancer Proxy Nginx - HTTPS SSL </li>
+</ul>
+
 ## Fast links:
 
-| Endpoint                                      | description                        |
-| --------------------------------------------- | ---------------------------------- |
-| http://localhost:4000/                        | http app                           |
-| http://localhost:4000/api/parcels             | http get all parcels               |
-| http://localhost:4000/api/parcels/:id         | http get parcel                    |
-| http://localhost:4000/api/senders/:id/parcels | http get sender's parcels          |
-| http://localhost:4000/api/bikers/:id/parcels  | http get biker's available parcels |
+| Endpoint                                               | description                         |
+| ------------------------------------------------------ | ----------------------------------- |
+| http://localhost:4000/api/parcels                      | http get all parcels                |
+| http://localhost:4000/api/parcels/:id                  | http get parcel                     |
+| http://localhost:4000/api/senders/:id/parcels          | http get sender's parcels           |
+| http://localhost:4000/api/senders/:id/parcels/:status  | http get sender's parcels by status |
+| http://localhost:4000/api/bikers/:id/parcels           | http get biker's available parcels  |
+| http://localhost:4000/api/bikers/:id/parcels/picked-up | http get biker's available parcels  |
+| http://localhost:4000/api/bikers/:id/parcels/delivered | http get biker's available parcels  |
 
 ---
 
@@ -124,3 +136,7 @@ npm start
 ```
 http://localhost:4000/parcels
 ```
+
+---
+
+## Bundled [VueDevTools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)

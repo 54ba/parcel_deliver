@@ -9,8 +9,7 @@ const findAvailableParcels = async (req, res) => {
             return res.status(400).send('Invalid biker ID');
         }
 
-        const parcels = await Parcel.find({ status: 'created' });
-        // const parcels = await Parcel.find({ status: 'created' }).populate('sender', 'name');
+        const parcels = await Parcel.find({ status: 'created' }).populate('sender', 'name');
 
         res.send(parcels);
     } catch (error) {
@@ -18,6 +17,43 @@ const findAvailableParcels = async (req, res) => {
         res.status(500).send('Server error');
     }
 }
+
+
+
+
+const findPickedUpParcels = async (req, res) => {
+    try {
+        const biker = await Biker.findById(req.params.id);
+        if (!biker) {
+            return res.status(400).send('Invalid biker ID');
+        }
+
+        const parcels = await Parcel.find({ status: 'pickedup', biker: req.params.id }).populate('sender', 'name');
+
+        res.send(parcels);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+}
+
+
+const findDeliveredParcels = async (req, res) => {
+    try {
+        const biker = await Biker.findById(req.params.id);
+        if (!biker) {
+            return res.status(400).send('Invalid biker ID');
+        }
+
+        const parcels = await Parcel.find({ status: 'delivered', biker: req.params.id }).populate('sender', 'name');;
+
+        res.send(parcels);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+}
+
 
 
 
@@ -108,6 +144,8 @@ const deliverParcel = async (req, res) => {
 module.exports =
 {
     findAvailableParcels,
+    findPickedUpParcels,
+    findDeliveredParcels,
     pickUpParcel,
     deliverParcel
 }

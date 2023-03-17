@@ -46,13 +46,13 @@ const createParcel = async (req, res) => {
 }
 
 // Get the status of all parcels for a sender
-const findParcelsStatus = async (req, res) => {
+const findParcelsByStatus = async (req, res) => {
     try {
         const sender = await Sender.findById(req.params.id);
         if (!sender) {
             return res.status(404).send('Sender not found');
         }
-        const parcels = await Parcel.find({ sender: sender._id });
+        const parcels = await Parcel.find({ sender: sender._id, status: req.params.status });
         res.send(parcels);
     } catch (error) {
         console.error(error);
@@ -65,7 +65,7 @@ module.exports =
 {
     create,
     createParcel,
-    findParcelsStatus
+    findParcelsByStatus
 
 }
 
